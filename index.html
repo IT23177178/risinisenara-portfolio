@@ -214,6 +214,14 @@ nav.scrolled{border-color:var(--border)}
   .screen-gallery{grid-template-columns:1fr}
   .cs-meta{gap:1.5rem;flex-wrap:wrap}
 }
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;opacity:.7;transition:opacity .2s}
+.lightbox-close:hover{opacity:1}
+.screen-item img{cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -417,7 +425,7 @@ function buildCS(k){
   const screenItems = d.screens.map(s => {
     const cls = s.fuel ? 'screen-item fuel-bg' : s.dark ? 'screen-item dark-bg' : 'screen-item';
     return `<div class="${cls}">
-      <img src="${s.img}" alt="${s.lbl}">
+      <img src="${s.img}" alt="${s.lbl}" onclick="openLightbox('${s.img}')">
       <div class="screen-lbl">${s.lbl}</div>
     </div>`;
   }).join('');
@@ -465,6 +473,23 @@ window.addEventListener('scroll',()=>{
 });
 
 go('home');
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
 </body>
 </html>
