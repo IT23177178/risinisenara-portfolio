@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Risini Senara — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f0f4f8;--text:#111;--muted:#888;--border:#e0ddd8;--card:#fff;--nav-h:64px}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;z-index:100;background:rgba(240,244,248,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-color:var(--border)}
+.logo{font-size:13px;padding:6px 16px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:var(--card)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-btn{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:6px 16px;border-radius:20px;transition:color .2s,background .2s}
+.nav-btn:hover{color:var(--text)}
+.nav-btn.active{background:var(--text);color:#fff}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:var(--nav-h);opacity:0;transition:opacity .35s ease;flex-direction:column}
+.page.active{display:flex}
+.page.visible{opacity:1}
+
+/* HOME */
+#home{
+  background:url("Home.jpg") center center / cover no-repeat;
+  justify-content:center;align-items:flex-start;position:relative;overflow:hidden
+}
+.home-grid{width:100%;max-width:1200px;margin:0 auto;padding:7rem 2.5rem 5rem;display:grid;grid-template-columns:1fr 1fr;align-items:flex-end;min-height:calc(100vh - var(--nav-h))}
+.home-name{font-family:'DM Serif Display',serif;font-size:clamp(4.5rem,10vw,9rem);font-weight:400;line-height:.9;letter-spacing:-.02em}
+.home-right{display:flex;flex-direction:column;gap:1.25rem;justify-content:flex-end;padding-bottom:.5rem}
+.home-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,3.8rem);font-weight:400;font-style:italic;line-height:1.1}
+.home-sub{font-size:1rem;font-weight:300;color:#444;line-height:1.65;max-width:340px}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;width:fit-content;font-size:13px;letter-spacing:.05em;text-transform:uppercase;background:var(--text);color:#fff;border:none;cursor:pointer;padding:13px 28px;border-radius:30px;transition:opacity .2s,transform .15s;margin-top:.5rem}
+.cta-btn:hover{opacity:.82;transform:translateY(-1px)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:38px;background:var(--muted);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.25;transform:scaleY(.5) translateY(-8px)}50%{opacity:.8;transform:scaleY(1) translateY(0)}}
+
+/* ABOUT */
+#about{background:url("About.jpg") center center / cover no-repeat}
+.about-grid{max-width:1100px;margin:0 auto;padding:7rem 2.5rem;display:grid;grid-template-columns:1fr 360px;gap:5rem;align-items:center;flex:1}
+.about-h{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.1;margin-bottom:2rem}
+.about-p{font-size:1rem;font-weight:300;line-height:1.8;color:#333;margin-bottom:1.1rem}
+.skill-pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:2rem}
+.pill{font-size:12px;padding:5px 13px;border:1px solid var(--border);border-radius:20px;color:#555;background:var(--card)}
+.photo-box{width:100%;aspect-ratio:3/4;border-radius:18px;overflow:hidden;background:linear-gradient(155deg,#c8c5c0,#b0ada8)}
+.photo-box img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* PROJECTS */
+#projects{
+  background:url("About.jpg") center center / cover no-repeat;
+}
+.proj-wrap{max-width:1200px;margin:0 auto;padding:5rem 2.5rem 6rem;flex:1}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+
+/* --- PROJECTS GRID: 3 equal columns --- */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.25rem;
+  margin-top:2.5rem;
+}
+
+.card{
+  background:var(--card);
+  border-radius:16px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .22s,box-shadow .22s;
+  display:flex;
+  flex-direction:column;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,.09)}
+
+.preview{
+  height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.preview img{
+  height:100%;
+  max-height:190px;
+  width:auto;
+  max-width:48%;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+  flex-shrink:0;
+}
+.preview img:only-child{max-width:72%}
+.pv-dark{background:#0d1117}
+.pv-light{background:#eef4ee}
+.pv-fuel{background:#0d1520}
+
+.card-body{padding:1.1rem 1.25rem 1.35rem;flex:1;display:flex;flex-direction:column}
+.card-title{font-size:15px;font-weight:500;margin-bottom:.4rem}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:.9rem;flex:1}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);color:#666}
+
+/* Case study button — INSIDE each card */
+.cs-btn{
+  display:block;
+  width:100%;
+  font-size:12px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  background:var(--text);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  padding:11px 18px;
+  border-radius:24px;
+  transition:transform .2s,opacity .2s;
+  text-align:center;
+  margin-top:auto;
+}
+.cs-btn:hover{opacity:.85;transform:translateY(-2px)}
+
+/* CASE STUDY */
+#casestudy{background:url("About.jpg") center center / cover no-repeat}
+.cs-wrap{max-width:860px;margin:0 auto;padding:4.5rem 2.5rem 6rem;flex:1}
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;margin-bottom:3rem;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.cs-ey{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+.cs-h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5.5vw,4.5rem);font-weight:400;line-height:1.0;margin-bottom:1rem}
+.cs-lead{font-size:1.05rem;font-weight:300;color:#444;line-height:1.65;max-width:580px;margin-bottom:2.5rem}
+.cs-meta{display:flex;gap:3rem;padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:3rem}
+.cs-ml{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.cs-mv{font-size:14px;color:var(--text)}
+.cs-sh{font-family:'DM Serif Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:1rem;margin-top:2.5rem}
+.cs-p{font-size:1rem;font-weight:300;line-height:1.8;color:#333;margin-bottom:1rem}
+
+/* Screen gallery for case studies */
+.screen-gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem;
+  margin:1.5rem 0;
+}
+.screen-item{
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:#fff;
+}
+.screen-item img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  object-position:top;
+  display:block;
+}
+.screen-lbl{
+  font-size:11px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:.6rem 1rem;
+  border-top:1px solid var(--border);
+  background:#fff;
+}
+
+/* Dark bg screen items */
+.screen-item.dark-bg{background:#0d1117;border-color:#1e2a3a}
+.screen-item.dark-bg .screen-lbl{background:#0d1117;color:#556;border-color:#1e2a3a}
+.screen-item.dark-bg img{object-fit:contain;background:#0d1117;padding:12px;height:200px}
+
+.screen-item.fuel-bg{background:#0d1520;border-color:#1e2a3a}
+.screen-item.fuel-bg .screen-lbl{background:#0d1520;color:#556;border-color:#1e2a3a}
+.screen-item.fuel-bg img{object-fit:contain;background:#0d1520;padding:12px;height:200px}
+
+.outcome-box{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:2rem;margin-top:2rem}
+.outcome-box h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.outcome-box li{list-style:none;font-size:.95rem;font-weight:300;color:#333;padding:.45rem 0 .45rem 1.4rem;position:relative;border-bottom:1px solid var(--border)}
+.outcome-box li:last-child{border:none}
+.outcome-box li::before{content:'→';position:absolute;left:0;color:var(--muted)}
+
+/* CONTACT */
+#contact{background:url("Home.jpg") center center / cover no-repeat;justify-content:center;align-items:center}
+.contact-wrap{max-width:860px;margin:0 auto;padding:7rem 2.5rem;flex:1;display:flex;flex-direction:column;justify-content:center}
+.contact-h{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,5.5vw,4.8rem);font-weight:400;line-height:1.08;margin-bottom:3.5rem}
+.contact-h em{font-style:italic}
+.contact-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.contact-link{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:var(--text);font-size:1rem;font-weight:300;padding:.9rem 1.5rem;border:1px solid var(--border);border-radius:50px;background:var(--card);transition:transform .2s,box-shadow .2s}
+.contact-link:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.07)}
+.ci{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:sans-serif;flex-shrink:0}
+.ci-gm{background:#fff;border:1px solid #eee}
+.ci-li{background:#0a66c2;color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .home-grid,.about-grid{grid-template-columns:1fr}
+  .about-grid{gap:2.5rem}
+  .screen-gallery{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .proj-grid{grid-template-columns:1fr}
+  .nav-btn{font-size:11px;padding:5px 10px}
+  .contact-row{flex-direction:column;align-items:flex-start}
+  .screen-gallery{grid-template-columns:1fr}
+  .cs-meta{gap:1.5rem;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <span class="logo" onclick="go('home')">rswp</span>
+  <div class="nav-links">
+    <button class="nav-btn" id="nb-about" onclick="go('about')">About</button>
+    <button class="nav-btn" id="nb-projects" onclick="go('projects')">Projects</button>
+    <button class="nav-btn" id="nb-contact" onclick="go('contact')">Contact</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section class="page" id="home">
+  <div class="home-grid">
+    <div class="home-name">Risini<br>Senara</div>
+    <div class="home-right">
+      <div class="home-title">UI/UX Designer</div>
+      <p class="home-sub">I design quiet, thoughtful digital experiences that feel natural to use.</p>
+      <button class="cta-btn" onclick="go('projects')">View work &nbsp;→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="about">
+  <div class="about-grid">
+    <div>
+      <h2 class="about-h">A designer who cares<br><em style="font-family:'DM Serif Display',serif;font-style:italic">about how things feel.</em></h2>
+      <p class="about-p">Hi, I'm Risini Senara — a UI/UX designer. I design digital experiences that are simple, clear, and thoughtful to use. I care about how things feel just as much as how they look, and I approach design with attention to detail and intention.</p>
+      <p class="about-p">My process usually begins with exploration and rough wireframes, followed by building high-fidelity designs in tools like Figma. I often step away and return with a fresh perspective to identify gaps, refine the experience, and iterate based on feedback.</p>
+      <p class="about-p">I'm constantly learning, observing, and improving my approach to create work that feels natural and considered.</p>
+      <div class="skill-pills">
+        <span class="pill">Figma</span><span class="pill">UI Design</span><span class="pill">UX Research</span>
+        <span class="pill">Prototyping</span><span class="pill">Mobile</span><span class="pill">Web</span><span class="pill">IoT Interfaces</span>
+      </div>
+    </div>
+    <div class="photo-box">
+      <img src="IMG_2512 1.png" alt="Risini Senara">
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="page" id="projects">
+  <div class="proj-wrap">
+    <p class="eyebrow">Selected work</p>
+    <div class="proj-grid">
+
+      <!-- AquaVita -->
+      <div class="card">
+        <div class="preview pv-dark">
+          <img src="Splash.png" alt="AquaVita Splash">
+          <img src="Water Quality Insight.png" alt="AquaVita Analytics">
+        </div>
+        <div class="card-body">
+          <div class="card-title">AquaVita</div>
+          <div class="card-desc">A smart water quality monitoring app that tracks TDS levels and filter health in real time.</div>
+          <div class="tag-row">
+            <span class="tag">Mobile</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Health</span>
+          </div>
+          <button class="cs-btn" onclick="openCS('aquavita')">View Case Study</button>
+        </div>
+      </div>
+
+      <!-- Event Management -->
+      <div class="card">
+        <div class="preview pv-light">
+          <img src="Browse Events Page.png" alt="Event Management">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Event Management Dashboard</div>
+          <div class="card-desc">An admin platform for managing event catalogues, ticket sales, and attendee analytics.</div>
+          <div class="tag-row">
+            <span class="tag">Dashboard</span>
+            <span class="tag">WebApp</span>
+            <span class="tag">Analytics</span>
+          </div>
+          <button class="cs-btn" onclick="openCS('eventmgmt')">View Case Study</button>
+        </div>
+      </div>
+
+      <!-- Fuel Shed -->
+      <div class="card">
+        <div class="preview pv-fuel">
+          <img src="Login-User.png" alt="Fuel Shed Login">
+          <img src="HomeDashboard.png" alt="Fuel Shed Dashboard">
+        </div>
+        <div class="card-body">
+          <div class="card-title">Fuel Shed</div>
+          <div class="card-desc">A real-time fuel monitoring app that tracks tank levels, pump health, and sensor data via IoT.</div>
+          <div class="tag-row">
+            <span class="tag">Mobile</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Industrial</span>
+          </div>
+          <button class="cs-btn" onclick="openCS('fuelshed')">View Case Study</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="page" id="casestudy">
+  <div class="cs-wrap">
+    <button class="back-btn" onclick="go('projects')">← Back to projects</button>
+    <div id="csc"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="page" id="contact">
+  <div class="contact-wrap">
+    <h2 class="contact-h">If something here<br>resonated <em>with you,</em><br>I'd love to connect.</h2>
+    <div class="contact-row">
+      <a class="contact-link" href="mailto:risiniswp@gmail.com">
+        <div class="ci ci-gm">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M0 1.5A1.5 1.5 0 011.5 0h13A1.5 1.5 0 0116 1.5v9A1.5 1.5 0 0114.5 12h-13A1.5 1.5 0 010 10.5v-9z" fill="#fff" stroke="#e0e0e0" stroke-width=".5"/><path d="M1 .5l7 5.5 7-5.5" stroke="#EA4335" stroke-width="1.1" fill="none"/></svg>
+        </div>
+        risiniswp@gmail.com
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/risini-s-6a0940360" target="_blank">
+        <div class="ci ci-li">in</div>
+        Risini Senara
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+const CS = {
+  aquavita:{
+    ey:'Case study · Mobile · IoT · Health',
+    h:'AquaVita',
+    lead:'A smart water quality monitoring app that gives households real-time visibility into their tap water — tracking TDS levels, filter health, and flow rate from a connected sensor.',
+    role:'UI/UX Designer', time:'6 weeks', tools:'Figma',
+    problem:'Most people have no idea what\'s in their tap water, and even those with filtration systems can\'t tell when a filter is degrading. The challenge: take raw sensor data and turn it into a calm, reassuring experience that builds daily trust.',
+    process:'I mapped the key user questions: Is my water safe right now? When does my filter need replacing? Is something wrong? Each screen was built around answering one of these directly. I avoided dashboard complexity in favour of a single dominant reading (TDS level) with clear health state labelling.',
+    screens:[
+      {img:'Dashboard.png', lbl:'Dashboard Overview', dark:true},
+      {img:'CartridgeHealth.png', lbl:'Cartridge Health', dark:true},
+      {img:'WaterQualityInsight.png', lbl:'Water Quality Insight', dark:true},
+      {img:'Splash.png', lbl:'Splash / Onboarding', dark:true}
+    ],
+    outcomes:[
+      'Led with a single safety verdict rather than raw numbers to reduce cognitive load',
+      'Colour system communicates safe / caution / danger at a glance',
+      'Filter health shown as a degrading progress bar — intuitive without explanation',
+      'Onboarding reduced to 3 steps with sensor pairing built in'
+    ]
+  },
+  eventmgmt:{
+    ey:'Case study · Web App · Dashboard · Analytics',
+    h:'Event Management Dashboard',
+    lead:'An admin platform for event organisers to manage catalogues, track ticket sales, and monitor attendee analytics across multiple events from a single interface.',
+    role:'UI/UX Designer', time:'8 weeks', tools:'Figma',
+    problem:'Event organisers were managing separate tools for event creation, ticketing, and analytics — constantly switching context and losing time. The brief was to consolidate this into one coherent admin experience that scales from a single event to a full catalogue.',
+    process:'I audited competing tools to identify patterns worth keeping and pain points worth solving. The core decision: a persistent sidebar with event context always visible. The catalogue view was designed to surface the most critical metrics at a glance — status, capacity, revenue — without requiring a drill-down.',
+    screens:[
+      {img:'OverviewPage.png', lbl:'Overview Page', dark:false},
+      {img:'EventDetailsPage.png', lbl:'Event Details', dark:false},
+      {img:'BrowseEventsPage.png', lbl:'Browse Events', dark:false},
+      {img:'AttendeeInsightPage.png', lbl:'Attendee Insight', dark:false}
+    ],
+    outcomes:[
+      'Unified event creation, ticketing, and analytics into a single workflow',
+      'Catalogue view shows status, capacity, and revenue at a glance',
+      'Sidebar navigation keeps event context persistent across all views',
+      'Analytics built around the questions organisers actually ask'
+    ]
+  },
+  fuelshed:{
+    ey:'Case study · Mobile · IoT · Industrial',
+    h:'Fuel Shed',
+    lead:'A real-time fuel monitoring app for industrial and logistics operators — tracking tank levels, pump health, and sensor data from connected IoT hardware in the field.',
+    role:'UI/UX Designer', time:'7 weeks', tools:'Figma',
+    problem:'Field operators managing multiple fuel tanks relied on manual dip-stick checks and phone calls to know current levels. Critical low-level situations were often discovered too late. The challenge: design for users who check the app quickly, often outdoors in poor lighting.',
+    process:'The primary constraint was legibility under stress — large type, high contrast, and a clear hierarchy with tank percentage dominant. I chose a dark theme functionally: it reads better in sunlight and reduces eye strain during night checks. Alert design was a core focus — notifications needed to be actionable, not just informational.',
+    screens:[
+      {img:'HomeDashboard.png', lbl:'Home Dashboard', fuel:true},
+      {img:'BookFuel.png', lbl:'Book Fuel', fuel:true},
+      {img:'FuelingHistory.png', lbl:'Fueling History', fuel:true},
+      {img:'SupportHelp.png', lbl:'Support & Help', fuel:true}
+    ],
+    outcomes:[
+      'Dark theme optimised for outdoor readability in direct sunlight',
+      'Tank level gauge readable at a glance without reading numbers',
+      'Threshold alerts customisable per tank',
+      'Nearby stations feature added after research revealed it as a top user task'
+    ]
+  }
+};
+
+function buildCS(k){
+  const d = CS[k];
+  const screenItems = d.screens.map(s => {
+    const cls = s.fuel ? 'screen-item fuel-bg' : s.dark ? 'screen-item dark-bg' : 'screen-item';
+    return `<div class="${cls}">
+      <img src="${s.img}" alt="${s.lbl}">
+      <div class="screen-lbl">${s.lbl}</div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="cs-ey">${d.ey}</div>
+    <h1 class="cs-h1">${d.h}</h1>
+    <p class="cs-lead">${d.lead}</p>
+    <div class="cs-meta">
+      <div><div class="cs-ml">Role</div><div class="cs-mv">${d.role}</div></div>
+      <div><div class="cs-ml">Timeline</div><div class="cs-mv">${d.time}</div></div>
+      <div><div class="cs-ml">Tools</div><div class="cs-mv">${d.tools}</div></div>
+    </div>
+    <h3 class="cs-sh">The problem</h3>
+    <p class="cs-p">${d.problem}</p>
+    <h3 class="cs-sh">Design process</h3>
+    <p class="cs-p">${d.process}</p>
+    <h3 class="cs-sh">Key screens</h3>
+    <div class="screen-gallery">${screenItems}</div>
+    <div class="outcome-box">
+      <h4>Outcomes &amp; design decisions</h4>
+      <ul>${d.outcomes.map(o=>`<li>${o}</li>`).join('')}</ul>
+    </div>
+  `;
+}
+
+function openCS(k){
+  document.getElementById('csc').innerHTML = buildCS(k);
+  go('casestudy');
+}
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active','visible')});
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const pg = document.getElementById(id);
+  pg.classList.add('active');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>pg.classList.add('visible')));
+  const nb = document.getElementById('nb-'+id);
+  if(nb) nb.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('topnav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+go('home');
+</script>
+</body>
+</html>
