@@ -163,6 +163,14 @@ nav.scrolled{border-color:var(--border)}
   object-position:top;
   display:block;
 }
+ /* Full images for AquaVita posters and research artefacts */
+.screen-item.show-full img{
+  height:auto;
+  max-height:560px;
+  object-fit:contain;
+  object-position:center;
+  background:#fff;
+}
 .screen-lbl{
   font-size:11px;
   letter-spacing:.06em;
@@ -187,6 +195,7 @@ nav.scrolled{border-color:var(--border)}
 .outcome-box li{list-style:none;font-size:.95rem;font-weight:300;color:#333;padding:.45rem 0 .45rem 1.4rem;position:relative;border-bottom:1px solid var(--border)}
 .outcome-box li:last-child{border:none}
 .outcome-box li::before{content:'→';position:absolute;left:0;color:var(--muted)}
+.screen-gallery > .outcome-box{margin-top:0;}
 
 /* CONTACT */
 #contact{background:url("Home.jpg") center center / cover no-repeat;justify-content:center;align-items:center}
@@ -272,23 +281,24 @@ nav.scrolled{border-color:var(--border)}
     <p class="eyebrow">Selected work</p>
     <div class="proj-grid">
 
-      <!-- AquaVita -->
-      <div class="card">
-        <div class="preview pv-dark">
-          <img src="Splash.png" alt="AquaVita Splash">
-          <img src="WaterQualityInsight.png" alt="AquaVita Analytics">
-        </div>
-        <div class="card-body">
-          <div class="card-title">AquaVita</div>
-          <div class="card-desc">A smart water quality monitoring app that tracks TDS levels and filter health in real time.</div>
-          <div class="tag-row">
-            <span class="tag">Mobile</span>
-            <span class="tag">IoT</span>
-            <span class="tag">Health</span>
-          </div>
-          <button class="cs-btn" onclick="openCS('aquavita')">View Case Study</button>
-        </div>
-      </div>
+     <!-- AquaVita -->
+<div class="card">
+  <div class="preview pv-dark">
+    <img src="AquaVita1.png" alt="AquaVita Smart Water Purifier">
+    <img src="AquaVita_Mobile.png" alt="AquaVita Mobile App Design">
+  </div>
+  <div class="card-body">
+    <div class="card-title">AquaVita Smart Water Purifier</div>
+    <div class="card-desc">A connected home water purification concept combining UX research, an appliance interface and a mobile companion experience.</div>
+    <div class="tag-row">
+      <span class="tag">Product Design</span>
+      <span class="tag">UX Research</span>
+      <span class="tag">IoT</span>
+      <span class="tag">Mobile</span>
+    </div>
+    <button class="cs-btn" onclick="openCS('aquavita')">View Case Study</button>
+  </div>
+</div>
 
       <!-- Event Management -->
       <div class="card">
@@ -358,26 +368,288 @@ nav.scrolled{border-color:var(--border)}
 
 <script>
 const CS = {
-  aquavita:{
-    ey:'Case study · Mobile · IoT · Health',
-    h:'AquaVita',
-    lead:'A smart water quality monitoring app that gives households real-time visibility into their tap water — tracking TDS levels, filter health, and flow rate from a connected sensor.',
-    role:'UI/UX Designer', time:'6 weeks', tools:'Figma',
-    problem:'Most people have no idea what\'s in their tap water, and even those with filtration systems can\'t tell when a filter is degrading. The challenge: take raw sensor data and turn it into a calm, reassuring experience that builds daily trust.',
-    process:'I mapped the key user questions: Is my water safe right now? When does my filter need replacing? Is something wrong? Each screen was built around answering one of these directly. I avoided dashboard complexity in favour of a single dominant reading (TDS level) with clear health state labelling.',
-    screens:[
-      {img:'Dashboard.png', lbl:'Dashboard Overview', dark:true},
-      {img:'CartridgeHealth.png', lbl:'Cartridge Health', dark:true},
-      {img:'WaterQualityInsight.png', lbl:'Water Quality Insight', dark:true},
-      {img:'Splash.png', lbl:'Splash / Onboarding', dark:true}
-    ],
-    outcomes:[
-      'Led with a single safety verdict rather than raw numbers to reduce cognitive load',
-      'Colour system communicates safe / caution / danger at a glance',
-      'Filter health shown as a degrading progress bar — intuitive without explanation',
-      'Onboarding reduced to 3 steps with sensor pairing built in'
-    ]
-  },
+ aquavita:{
+  ey:'Product Design Case Study · UX Research · IoT · Mobile',
+  h:'AquaVita Smart Water Purifier',
+  lead:'A connected home water purification concept designed to make water quality, filter condition and everyday maintenance easier to understand and manage.',
+  role:'UX research & UI/UX design',
+  meta:[
+    {label:'Role',value:'UX research & UI/UX design'},
+    {label:'Project',value:'Academic · SE3061'},
+    {label:'Research',value:'22 survey respondents'},
+    {label:'Tools',value:'Figma · Google Forms'}
+  ],
+
+  content:`
+
+    <!-- 01 / OVERVIEW -->
+    <div class="cs-ey">01 / Overview</div>
+    <h3 class="cs-sh">Designing a more informed water experience</h3>
+    <p class="cs-p">AquaVita explores how a smart water purifier and its companion mobile experience could help households monitor water quality, understand filter health and reduce the effort involved in routine purifier maintenance. The concept brings together an appliance touchscreen, automatic alerts and a mobile companion app.</p>
+
+    <div class="screen-item show-full">
+      <img src="AquaVita1.png" alt="AquaVita product concept" onclick="openLightbox('AquaVita1.png')">
+      <div class="screen-lbl">Project introduction · AquaVita product concept</div>
+    </div>
+
+    <div class="outcome-box">
+      <h4>Project goal</h4>
+      <p class="cs-p">Explore a more accessible and proactive purifier experience by making important information and maintenance actions easier to find.</p>
+      <h4>My contribution</h4>
+      <p class="cs-p">UX research synthesis, user personas, empathy and journey mapping, problem definition, product concept development and interface design.</p>
+    </div>
+
+    <p class="cs-p">This is an academic product concept. The physical purifier is presented as a proposed design direction; no manufactured product or physical prototype is being claimed.</p>
+
+
+    <!-- 02 / THE CHALLENGE -->
+    <div class="cs-ey">02 / The Challenge</div>
+    <h3 class="cs-sh">Where everyday purifier use becomes difficult</h3>
+    <p class="cs-p">The project explored common difficulties people may experience when using household water purifiers, particularly when they need to understand filter condition, refill the unit or recognise when the purifier needs attention.</p>
+
+    <div class="outcome-box">
+      <h4>Unclear maintenance status</h4>
+      <p class="cs-p">Users may not know when a filter needs replacing or whether the purifier requires attention.</p>
+
+      <h4>Manual effort</h4>
+      <p class="cs-p">Refilling and routine maintenance can interrupt everyday use.</p>
+
+      <h4>Limited feedback</h4>
+      <p class="cs-p">Without clear indicators or alerts, users may not immediately notice an issue.</p>
+
+      <h4>Different user needs</h4>
+      <p class="cs-p">A single interface must account for different levels of confidence with digital controls, including older users.</p>
+    </div>
+
+
+    <!-- 03 / RESEARCH -->
+    <div class="cs-ey">03 / Research</div>
+    <h3 class="cs-sh">Listening to potential users</h3>
+    <p class="cs-p">An online Google Forms survey was conducted from 6–27 March 2026. The study received 22 responses through convenience sampling. The questions explored purifier usage, common difficulties and reactions to proposed smart features.</p>
+
+    <div class="screen-gallery">
+      <div class="outcome-box">
+        <div class="cs-ml">Survey respondents</div>
+        <div class="cs-h1">22</div>
+        <p class="cs-p">Participants</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-ml">Survey collection period</div>
+        <div class="cs-h1">6–27</div>
+        <p class="cs-p">March 2026</p>
+      </div>
+    </div>
+
+    <h3 class="cs-sh">What the survey indicated</h3>
+
+    <div class="screen-gallery">
+      <div class="outcome-box">
+        <div class="cs-h1">73%</div>
+        <p class="cs-p">Rated automatic refilling as very useful.</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-h1">86%</div>
+        <p class="cs-p">Found automatic alerts helpful or very helpful.</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-h1">68%</div>
+        <p class="cs-p">Rated the self-cleaning feature as very useful.</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-h1">54%</div>
+        <p class="cs-p">Preferred a hybrid touchscreen and physical-control interface.</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-h1">68%</div>
+        <p class="cs-p">Thought elderly users might struggle with a fully touchscreen-based interface.</p>
+      </div>
+      <div class="outcome-box">
+        <div class="cs-h1">60%</div>
+        <p class="cs-p">Reported filter replacement as difficult sometimes or yes.</p>
+      </div>
+    </div>
+
+    <p class="cs-p">Percentages are reproduced from the project report. They describe this small convenience sample and should not be interpreted as representative of all households.</p>
+
+
+    <!-- 04 / USER UNDERSTANDING -->
+    <div class="cs-ey">04 / User Understanding</div>
+    <h3 class="cs-sh">Personas, empathy and the current journey</h3>
+    <p class="cs-p">The research was synthesised into three broad user groups: elderly users, working professionals, and students or young adults. These artefacts helped frame different needs and levels of familiarity with technology.</p>
+
+    <div class="screen-item show-full">
+      <img src="UserPersona.png" alt="AquaVita user personas" onclick="openLightbox('UserPersona.png')">
+      <div class="screen-lbl">User personas</div>
+    </div>
+
+    <div class="outcome-box">
+      <h4>Persona 01 · Elderly user</h4>
+      <p class="cs-p">Needs clear status information, readable controls and reassurance when the purifier requires attention.</p>
+      <div class="tag-row">
+        <span class="tag">Clarity</span>
+        <span class="tag">Accessibility</span>
+      </div>
+
+      <h4>Persona 02 · Working professional</h4>
+      <p class="cs-p">Values convenience, timely notifications and fewer interruptions to everyday routines.</p>
+      <div class="tag-row">
+        <span class="tag">Convenience</span>
+        <span class="tag">Automation</span>
+      </div>
+
+      <h4>Persona 03 · Student / young adult</h4>
+      <p class="cs-p">Benefits from straightforward guidance and an easy way to understand purifier status and maintenance.</p>
+      <div class="tag-row">
+        <span class="tag">Ease of use</span>
+        <span class="tag">Guidance</span>
+      </div>
+    </div>
+
+    <div class="screen-item show-full">
+      <img src="EmpathyMap.png" alt="AquaVita empathy map" onclick="openLightbox('EmpathyMap.png')">
+      <div class="screen-lbl">Empathy map</div>
+    </div>
+
+    <h3 class="cs-sh">Current-state user journey</h3>
+    <p class="cs-p">The journey mapping explored the experience from awareness and initial setup through daily use, maintenance and unexpected issues. It helped identify moments where users may need clearer instructions, more visible feedback and easier access to support.</p>
+
+
+    <!-- 05 / DEFINE -->
+    <div class="cs-ey">05 / Define</div>
+    <h3 class="cs-sh">Turning research into design opportunities</h3>
+    <p class="cs-p">The research synthesis informed problem statements and How Might We questions to guide the proposed product experience.</p>
+
+    <div class="outcome-box">
+      <h4>Problem statement</h4>
+      <p class="cs-p">Household purifier users need a clearer way to understand water quality and filter condition because limited feedback can make maintenance and issue detection uncertain.</p>
+
+      <h4>How might we…</h4>
+      <p class="cs-p">Make purifier status understandable at a glance, help users anticipate maintenance, and support people with different levels of digital confidence?</p>
+    </div>
+
+
+    <!-- 06 / PRODUCT CONCEPT -->
+    <div class="cs-ey">06 / Product Concept</div>
+    <h3 class="cs-sh">A connected purifier with a hybrid interface</h3>
+    <p class="cs-p">The proposed AquaVita concept combines a purifier touchscreen with a mobile companion app. The appliance interface is intended to make essential information available at the point of use, while the app extends monitoring and alerts beyond the device.</p>
+
+    <div class="screen-item show-full">
+      <img src="AquaVita_Mobile.png" alt="AquaVita mobile application design" onclick="openLightbox('AquaVita_Mobile.png')">
+      <div class="screen-lbl">AquaVita mobile application design</div>
+    </div>
+
+    <div class="outcome-box">
+      <h4>At-a-glance status</h4>
+      <p class="cs-p">Water quality and TDS information, tank level and filter health are surfaced as key status indicators.</p>
+
+      <h4>Maintenance support</h4>
+      <p class="cs-p">Filter replacement reminders and automatic alerts help users understand when attention may be needed.</p>
+
+      <h4>Convenience features</h4>
+      <p class="cs-p">Automatic refilling and self-cleaning are explored as ways to reduce routine effort.</p>
+
+      <h4>Accessible interaction</h4>
+      <p class="cs-p">A hybrid approach combines a touchscreen with physical controls, including an emergency stop concept.</p>
+    </div>
+
+
+    <!-- 07 / INTERFACE DESIGN -->
+    <div class="cs-ey">07 / Interface Design</div>
+    <h3 class="cs-sh">The companion experience</h3>
+    <p class="cs-p">The interface concept focuses on making important purifier information easy to scan and helping users understand what action, if any, is required.</p>
+
+    <div class="screen-gallery">
+      <div class="screen-item dark-bg">
+        <img src="Dashboard.png" alt="AquaVita mobile app dashboard" onclick="openLightbox('Dashboard.png')">
+        <div class="screen-lbl">Mobile app dashboard</div>
+      </div>
+
+      <div class="screen-item dark-bg">
+        <img src="CartridgeHealth.png" alt="AquaVita filter health screen" onclick="openLightbox('CartridgeHealth.png')">
+        <div class="screen-lbl">Filter health</div>
+      </div>
+
+      <div class="screen-item dark-bg">
+        <img src="WaterQualityInsight.png" alt="AquaVita water quality insight" onclick="openLightbox('WaterQualityInsight.png')">
+        <div class="screen-lbl">Water quality insight</div>
+      </div>
+
+      <div class="screen-item dark-bg">
+        <img src="Splash.png" alt="AquaVita splash and onboarding screen" onclick="openLightbox('Splash.png')">
+        <div class="screen-lbl">Splash / onboarding</div>
+      </div>
+    </div>
+
+
+    <!-- 08 / PROTOTYPE & EVALUATION -->
+    <div class="cs-ey">08 / Prototype &amp; Evaluation</div>
+    <h3 class="cs-sh">Planning how the experience could be evaluated</h3>
+    <p class="cs-p">The project report outlines a proposed usability evaluation with 12 participants across the three user groups, six usability tasks, task success and time measures, error and assistance tracking, and a System Usability Scale (SUS) target of 80 or above. It also proposes heuristic evaluation by three HCI experts.</p>
+
+    <div class="outcome-box">
+      <h4>Planned participants</h4>
+      <p class="cs-p">12 users, with four participants representing each of the three user groups.</p>
+
+      <h4>Planned evaluation</h4>
+      <p class="cs-p">Six tasks, task success, completion time, errors, assistance and SUS questionnaire.</p>
+    </div>
+
+    <p class="cs-p"><strong>Evaluation status:</strong> These are evaluation plans and target measures documented in the report. They are not presented here as completed user-testing results.</p>
+
+
+    <!-- 09 / SUPPORTING MATERIAL -->
+    <div class="cs-ey">09 / Supporting Material</div>
+    <h3 class="cs-sh">A closer look at the project</h3>
+    <p class="cs-p">The following media provides an additional look at the product concept and proposed experience.</p>
+
+    <div class="outcome-box">
+      <h4>Project video</h4>
+      <video controls playsinline style="width:100%;border-radius:12px;margin-top:1rem;background:#0d1117;">
+        <source src="AquaVita%20Smart%20Water%20Purifier_720p.mp4" type="video/mp4">
+        Your browser does not support the video element.
+      </video>
+      <p class="cs-p">AquaVita Smart Water Purifier · Project video</p>
+    </div>
+
+    <div class="screen-gallery">
+      <div class="screen-item show-full">
+        <img src="AquaVita1.png" alt="AquaVita product concept poster" onclick="openLightbox('AquaVita1.png')">
+        <div class="screen-lbl">Product concept poster</div>
+      </div>
+
+      <div class="screen-item">
+        <img src="AquaVita_Mobile.png" alt="AquaVita mobile app design poster" onclick="openLightbox('AquaVita_Mobile.png')">
+        <div class="screen-lbl">Mobile application design poster</div>
+      </div>
+    </div>
+
+    <div class="outcome-box">
+      <h4>Full UX report</h4>
+      <p class="cs-p">Explore the complete project report for further details on the research, analysis and proposed product experience.</p>
+      <a href="AquaVita_UX_Report.pdf" target="_blank" rel="noopener" style="display:inline-block;margin-top:.5rem;color:var(--text);font-size:13px;text-decoration:underline;">
+        View the AquaVita UX report ↗
+      </a>
+    </div>
+
+
+    <!-- 10 / REFLECTION -->
+    <div class="cs-ey">10 / Reflection</div>
+    <h3 class="cs-sh">What this project explored</h3>
+    <p class="cs-p">AquaVita brought together user research, product thinking and interface design for a connected home appliance. The process highlighted the importance of communicating technical information in a way that feels understandable, and of considering accessibility alongside automation and convenience.</p>
+
+    <div class="outcome-box">
+      <h4>Key design considerations</h4>
+      <ul>
+        <li>Make essential purifier status visible and understandable at a glance.</li>
+        <li>Support timely maintenance awareness through clear alerts.</li>
+        <li>Consider both digital and physical interaction preferences.</li>
+        <li>Design for different levels of confidence and accessibility needs.</li>
+        <li>Validate the proposed experience through usability testing in a future evaluation.</li>
+      </ul>
+    </div>
+  `
+},
+  
   eventmgmt:{
     ey:'Case study · Web App · Dashboard · Analytics',
     h:'Event Management Dashboard',
@@ -422,6 +694,26 @@ const CS = {
 
 function buildCS(k){
   const d = CS[k];
+
+  // Custom layout for AquaVita
+  if(d.content){
+    const metaItems = d.meta.map(item => `
+      <div>
+        <div class="cs-ml">${item.label}</div>
+        <div class="cs-mv">${item.value}</div>
+      </div>
+    `).join('');
+
+    return `
+      <div class="cs-ey">${d.ey}</div>
+      <h1 class="cs-h1">${d.h}</h1>
+      <p class="cs-lead">${d.lead}</p>
+      <div class="cs-meta">${metaItems}</div>
+      ${d.content}
+    `;
+  }
+
+  // Original layout for Event Management and Fuel Shed
   const screenItems = d.screens.map(s => {
     const cls = s.fuel ? 'screen-item fuel-bg' : s.dark ? 'screen-item dark-bg' : 'screen-item';
     return `<div class="${cls}">
@@ -451,7 +743,6 @@ function buildCS(k){
     </div>
   `;
 }
-
 function openCS(k){
   document.getElementById('csc').innerHTML = buildCS(k);
   go('casestudy');
